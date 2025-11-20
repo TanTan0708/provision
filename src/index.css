@@ -1,0 +1,139 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('src/assets/Poppins-regular.ttf');
+}
+@font-face {
+  font-family: 'PoppinsBold';
+  src: url('src/assets/Poppins-Bold.ttf');
+}
+@font-face {
+  font-family: 'PoppinsSemiBold';
+  src: url('src/assets/Poppins-SemiBold.ttf');
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  justify-content: left;
+  align-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+.sidebar{
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: start;
+  align-items: top;
+  background-color:#0C342C;/*#06231D;*/
+  border-radius: 24px;
+  padding-bottom: 600%;
+  padding-right: 40%;
+  margin-left: 50%;
+}
+.logo{
+  min-width: 100px;
+  min-height: 100px;
+  margin-left: 20%;
+  margin-top: 20%;
+}
+.bell{
+  position: absolute;
+  width: 24.5%;
+  height: 5%;
+  left: 39.5%;
+  top: 19.5%;
+}
+.rectangle{
+  position: absolute;
+  width: 30%;
+  height: 6%;
+  border-radius: 16px;
+  border: 3px white solid;
+  left: 35%;
+  top: 18.75%;
+}
+.circle{
+  width: 22px;
+  height: 22px;
+  background-color: #076653;
+  color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 18%;
+  left: 58%;
+}
+.circle p{
+  position: absolute;
+  font-size: 13px;
+  top: -50%;
+  left: 35%;
+  font-family: 'PoppinsSemiBold';
+}
+.home{
+  position: absolute;
+  display: none;
+}
