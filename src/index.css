@@ -244,7 +244,7 @@ button:focus-visible {
 }
 .greenhome{
   position: relative;
-  margin-top: -1350%;
+  margin-top: -1370%;
   left: 1300%;
 }
 .greenhomepic{
@@ -254,10 +254,31 @@ button:focus-visible {
 }
 .backtodashboard{
   position: absolute;
-  top: 20px;
-  left: -20px;
+  top: 25px;
+  left: -15px;
   display: inline-block;
   text-align: center;
   line-height: 1;
   font-family: 'PoppinsMedium';
+  font-size: 80%;
+}
+.container{
+  position: relative;
+}
+.greencontainer{
+  position: absolute;
+  width: 1170%;
+  height: 50vh;
+  margin-top: -590%;
+  left: 240%;
+  background-color: #06231D;
+  border-radius: 24px;
+}
+.graphtitle{
+  position: absolute;
+  color: white;
+  font-family: 'PoppinsBold';
+  top: 3%;
+  left: 4%;
+  font-size: 130%;
 }
