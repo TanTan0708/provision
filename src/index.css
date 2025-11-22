@@ -89,7 +89,7 @@ button:focus-visible {
   margin-top: 40%;
 }
 .sidebar{
-  position: relative;
+  position: sticky;
   width: 100px;
   height: 100px;
   display: flex;

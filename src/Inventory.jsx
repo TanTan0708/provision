@@ -78,7 +78,7 @@ Instructions:
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer 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`,
+            'Authorization': `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
           },
           body: JSON.stringify({
             model: 'x-ai/grok-4.1-fast',
