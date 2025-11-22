@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function Sales() {
+function Revenue() {
   const [predictions, setPredictions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -50,7 +50,7 @@ Nov 2025 Main Crop Start 160 155 4 151 170 Shortage
   useEffect(() => {
     const fetchPredictions = async () => {
       try {
-        const prompt = `You are a sales forecasting expert. Based on the following historical sales data and production trends, predict weekly sales (in units) for the next 4 weeks starting from December 2025.
+        const prompt = `You are a revenue forecasting expert. Based on the following historical revenue data and production trends, predict weekly revenue (in units) for the next 4 weeks starting from December 2025.
 
 Historical Sales Data:
 ${JSON.stringify(historicalData, null, 2)}
@@ -77,7 +77,7 @@ Instructions:
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer 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`,
+            'Authorization': `Bearer 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`,
           },
           body: JSON.stringify({
             model: 'x-ai/grok-4.1-fast',
@@ -112,9 +112,9 @@ Instructions:
   }, []);
 
   return (
-    <div className="container">
+    <div className="revenuecontainer">
       <div className="greencontainer">
-        <p className="graphtitle">Sales</p>
+        <p className="graphtitle">Revenue</p>
         
         {/* Graph on the left */}
         <div className="graph" style={{ 
@@ -136,7 +136,7 @@ Instructions:
                 fontSize: '16px',
                 animation: 'pulse 1.5s ease-in-out infinite'
               }}>
-                AI is analyzing sales patterns...
+                ProVision is analyzing Revenue patterns...
               </div>
             </div>
           )}
@@ -401,4 +401,4 @@ Instructions:
   );
 }
 
-export default Sales;
+export default Revenue;

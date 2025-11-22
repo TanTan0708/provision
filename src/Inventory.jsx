@@ -1,33 +1,33 @@
 import { useState, useEffect } from 'react';
 
-function Sales() {
+function Inventory() {
   const [predictions, setPredictions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [aiInsights, setAiInsights] = useState('');
 
   const historicalData = [
-    { date: 'Nov 2024', sales: 4500, revenue: 225000 },
-    { date: 'Dec 2024', sales: 5200, revenue: 260000 },
-    { date: 'Jan 2025', sales: 1200, revenue: 60000 },
-    { date: 'Feb 2025', sales: 1100, revenue: 55000 },
-    { date: 'Mar 2025', sales: 1400, revenue: 70000 },
-    { date: 'Apr 2025', sales: 1800, revenue: 90000 },
-    { date: 'May 2025', sales: 2200, revenue: 110000 },
-    { date: 'Jun 2025', sales: 2500, revenue: 125000 },
-    { date: 'Jul 2025', sales: 2100, revenue: 105000 },
-    { date: 'Aug 2025', sales: 1900, revenue: 95000 },
-    { date: 'Sep 2025', sales: 2200, revenue: 110000 },
-    { date: 'Oct 2025', sales: 2800, revenue: 140000 },
-    { date: 'Nov 2025', sales: 4600, revenue: 230000 }
+    { date: 'Nov 2024', sales: 4500, revenue: 225000, production: 2000, inventory: 4400 },
+    { date: 'Dec 2024', sales: 5200, revenue: 260000, production: 1500, inventory: 700 },
+    { date: 'Jan 2025', sales: 1200, revenue: 60000, production: 1500, inventory: 1000},
+    { date: 'Feb 2025', sales: 1100, revenue: 55000, production: 1500, inventory: 1400},
+    { date: 'Mar 2025', sales: 1400, revenue: 70000, production: 1600, inventory: 1600},
+    { date: 'Apr 2025', sales: 1800, revenue: 90000, production: 2000, inventory: 1800},
+    { date: 'May 2025', sales: 2200, revenue: 110000, production: 2200, inventory: 1800 },
+    { date: 'Jun 2025', sales: 2500, revenue: 125000, production: 2000, inventory: 1300 },
+    { date: 'Jul 2025', sales: 2100, revenue: 105000, production: 2500, inventory: 1700 },
+    { date: 'Aug 2025', sales: 1900, revenue: 95000, production: 3000, inventory: 2800},
+    { date: 'Sep 2025', sales: 2200, revenue: 110000, production: 3800, inventory: 4400 },
+    { date: 'Oct 2025', sales: 2800, revenue: 140000, production: 4200, inventory: 5800 },
+    { date: 'Nov 2025', sales: 4600, revenue: 230000, production: 2200, inventory: 3400 }
   ];
 
   // Convert Nov 2025 to weekly breakdown
   const nov2025Weekly = [
-    { week: 'Week 1', sales: 1150 },
-    { week: 'Week 2', sales: 1150 },
-    { week: 'Week 3', sales: 1150 },
-    { week: 'Week 4', sales: 1150 }
+    { week: 'Week 1', production: 1150 },
+    { week: 'Week 2', production: 1150 },
+    { week: 'Week 3', production: 1150 },
+    { week: 'Week 4', production: 1150 }
   ];
 
   const productionTrends = `
@@ -50,9 +50,9 @@ Nov 2025 Main Crop Start 160 155 4 151 170 Shortage
   useEffect(() => {
     const fetchPredictions = async () => {
       try {
-        const prompt = `You are a sales forecasting expert. Based on the following historical sales data and production trends, predict weekly sales (in units) for the next 4 weeks starting from December 2025.
+        const prompt = `You are an inventory forecasting expert. Based on the following historical data (including sales, revenue, production, and inventory) along with production trends, predict weekly inventory (in units) for the next 4 weeks starting from December 2025.
 
-Historical Sales Data:
+Historical Data (Sales, Revenue, Production & Inventory):
 ${JSON.stringify(historicalData, null, 2)}
 
 Production Trends:
@@ -61,16 +61,17 @@ ${productionTrends}
 Instructions:
 1. Analyze the seasonal patterns (notice the spike in Nov-Dec and decline in Jan-Apr)
 2. Consider that December 2025 is "Main Peak" season with balanced supply/demand
-3. Provide EXACTLY 4 weekly predictions for December 2025
-4. Return your response as a JSON object with this EXACT structure (no markdown, no extra text):
+3. Consider inventory levels when making predictions
+4. Provide EXACTLY 4 weekly predictions for December 2025
+5. Return your response as a JSON object with this EXACT structure (no markdown, no extra text):
 {
   "predictions": [
-    {"week": "Week 1 (Dec 1-7)", "sales": <number>},
-    {"week": "Week 2 (Dec 8-14)", "sales": <number>},
-    {"week": "Week 3 (Dec 15-21)", "sales": <number>},
-    {"week": "Week 4 (Dec 22-31)", "sales": <number>}
+    {"week": "Week 1 (Dec 1-7)", "production": <number>},
+    {"week": "Week 2 (Dec 8-14)", "production": <number>},
+    {"week": "Week 3 (Dec 15-21)", "production": <number>},
+    {"week": "Week 4 (Dec 22-31)", "production": <number>}
   ],
-  "insights": "Brief explanation of the prediction reasoning"
+  "insights": "Brief explanation of the prediction reasoning based on production trends and inventory levels"
 }`;
 
         const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -112,9 +113,9 @@ Instructions:
   }, []);
 
   return (
-    <div className="container">
+    <div className="inventorycontainer">
       <div className="greencontainer">
-        <p className="graphtitle">Sales</p>
+        <p className="graphtitle">Inventory</p>
         
         {/* Graph on the left */}
         <div className="graph" style={{ 
@@ -136,7 +137,7 @@ Instructions:
                 fontSize: '16px',
                 animation: 'pulse 1.5s ease-in-out infinite'
               }}>
-                ProVision is analyzing sales patterns...
+                ProVision is analyzing Inventory patterns...
               </div>
             </div>
           )}
@@ -171,9 +172,9 @@ Instructions:
 
               {/* Y-axis labels */}
               {[0, 1, 2, 3, 4].map((i) => {
-                const allSales = [...nov2025Weekly.map(d => d.sales), ...predictions.map(p => p.sales)];
-                const maxSales = Math.max(...allSales);
-                const value = Math.round(maxSales - (i * maxSales / 4));
+                const allProduction = [...nov2025Weekly.map(d => d.production), ...predictions.map(p => p.production)];
+                const maxProduction = Math.max(...allProduction);
+                const value = Math.round(maxProduction - (i * maxProduction / 4));
                 return (
                   <text
                     key={i}
@@ -191,12 +192,12 @@ Instructions:
               {/* Historical line (Nov 2025) - BLUE */}
               {nov2025Weekly.map((data, idx) => {
                 if (idx === 0) return null;
-                const allSales = [...nov2025Weekly.map(d => d.sales), ...predictions.map(p => p.sales)];
-                const maxSales = Math.max(...allSales);
+                const allProduction = [...nov2025Weekly.map(d => d.production), ...predictions.map(p => p.production)];
+                const maxProduction = Math.max(...allProduction);
                 const x1 = 120 + (idx - 1) * 160;
                 const x2 = 120 + idx * 160;
-                const y1 = 330 - (nov2025Weekly[idx - 1].sales / maxSales) * 280;
-                const y2 = 330 - (data.sales / maxSales) * 280;
+                const y1 = 330 - (nov2025Weekly[idx - 1].production / maxProduction) * 280;
+                const y2 = 330 - (data.production / maxProduction) * 280;
                 
                 return (
                   <line
@@ -213,10 +214,10 @@ Instructions:
 
               {/* Historical data points - BLUE */}
               {nov2025Weekly.map((data, idx) => {
-                const allSales = [...nov2025Weekly.map(d => d.sales), ...predictions.map(p => p.sales)];
-                const maxSales = Math.max(...allSales);
+                const allProduction = [...nov2025Weekly.map(d => d.production), ...predictions.map(p => p.production)];
+                const maxProduction = Math.max(...allProduction);
                 const x = 120 + idx * 160;
-                const y = 330 - (data.sales / maxSales) * 280;
+                const y = 330 - (data.production / maxProduction) * 280;
                 
                 return (
                   <g key={`hist-point-${idx}`}>
@@ -234,7 +235,7 @@ Instructions:
                       fontWeight="bold"
                       fill="#4A90E2"
                     >
-                      {data.sales.toLocaleString()}
+                      {data.production.toLocaleString()}
                     </text>
                   </g>
                 );
@@ -243,12 +244,12 @@ Instructions:
               {/* Prediction line (Dec 2025) - GREEN */}
               {predictions.map((pred, idx) => {
                 if (idx === 0) return null;
-                const allSales = [...nov2025Weekly.map(d => d.sales), ...predictions.map(p => p.sales)];
-                const maxSales = Math.max(...allSales);
+                const allProduction = [...nov2025Weekly.map(d => d.production), ...predictions.map(p => p.production)];
+                const maxProduction = Math.max(...allProduction);
                 const x1 = 120 + (idx - 1) * 160;
                 const x2 = 120 + idx * 160;
-                const y1 = 330 - (predictions[idx - 1].sales / maxSales) * 280;
-                const y2 = 330 - (pred.sales / maxSales) * 280;
+                const y1 = 330 - (predictions[idx - 1].production / maxProduction) * 280;
+                const y2 = 330 - (pred.production / maxProduction) * 280;
                 
                 return (
                   <line
@@ -265,10 +266,10 @@ Instructions:
 
               {/* Prediction data points - GREEN */}
               {predictions.map((pred, idx) => {
-                const allSales = [...nov2025Weekly.map(d => d.sales), ...predictions.map(p => p.sales)];
-                const maxSales = Math.max(...allSales);
+                const allProduction = [...nov2025Weekly.map(d => d.production), ...predictions.map(p => p.production)];
+                const maxProduction = Math.max(...allProduction);
                 const x = 120 + idx * 160;
-                const y = 330 - (pred.sales / maxSales) * 280;
+                const y = 330 - (pred.production / maxProduction) * 280;
                 
                 return (
                   <g key={idx}>
@@ -286,7 +287,7 @@ Instructions:
                       fontWeight="bold"
                       fill="white"
                     >
-                      {pred.sales.toLocaleString()}
+                      {pred.production.toLocaleString()}
                     </text>
                   </g>
                 );
@@ -401,4 +402,4 @@ Instructions:
   );
 }
 
-export default Sales;
+export default Inventory;

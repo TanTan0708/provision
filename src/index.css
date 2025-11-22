@@ -84,7 +84,10 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-
+.bigdiv{
+  position: relative;
+  margin-top: 40%;
+}
 .sidebar{
   position: relative;
   width: 100px;
@@ -264,6 +267,18 @@ button:focus-visible {
 }
 .container{
   position: relative;
+}
+.revenuecontainer{
+  position: relative;
+  margin-top: 420%;
+}
+.productioncontainer{
+  position: relative;
+  margin-top: 840%;
+}
+.inventorycontainer{
+  position: relative;
+  margin-top: 1280%;
 }
 .greencontainer{
   position: absolute;
